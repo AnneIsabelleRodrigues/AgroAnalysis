@@ -6,9 +6,11 @@ from streamlit_option_menu import option_menu
 import sys
 import os
 import geemap.foliumap as geemap
+import streamlit.components.v1 as components
+from PIL import Image
 
 sys.path.insert(0, os.getcwd())
-from main import mapdisplay, display_timeseries, mapinterativo
+from main import mapdisplay, display_timeseries
 
 #Layout
 st.set_page_config(
@@ -44,16 +46,17 @@ if selected=="Visualizações":
     st.divider()
 
     st.subheader('Visão Geral da Propriedade')
-    m = geemap.Map()
-    m = mapdisplay(m)
-    m.to_streamlit(height=450)
+    with open("map.html", "r") as f:
+        html_str = f.read()
+
+    components.html(html_str, height=600)
+
 
     st.subheader('Dados Temporais de NDVI')
-    fig = display_timeseries()
-    st.pyplot(fig=fig, clear_figure=None, use_container_width=True)
+    image = Image.open("temporal_ndvi_mean.png")
+    st.image(image, caption='Tendência da Média de NDVI na Propriedade', use_column_width=True)
 
     st.subheader('Timelapse NDVI (MODIS)')
-    # mapinterativo()
     file_ = open("ndvi.gif", "rb")
     contents = file_.read()
     data_url = base64.b64encode(contents).decode("utf-8")

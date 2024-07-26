@@ -6,6 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import geemap.foliumap as geemap
 import geemap as geep
+import mpld3
 
 def apply_scl_mask(image):
     scl = image.select('SCL')
@@ -53,14 +54,11 @@ def df_ndvi():
 
     image_list = collection_with_mask.toList(collection_with_mask.size())
 
-    # Inicializa uma lista para armazenar os dados
     all_data = []
 
-    # Loop sobre as imagens na lista
     for i in range(collection_with_mask.size().getInfo()):
         image = ee.Image(image_list.get(i))
 
-        # Calcula o NDVI médio na região de interesse
         mean_ndvi_region = image.reduceRegion(
             reducer=ee.Reducer.mean(),
             scale=10,
@@ -83,42 +81,36 @@ def display_timeseries():
 
     df = df_ndvi()
     df['date'] = pd.to_datetime(df['date'])
+    df['date'] = df['date'].dt.strftime('%d/%m/%Y')
 
-    # Defina o estilo
     plt.style.use('seaborn-v0_8-whitegrid')
 
-    plt.figure(figsize=(12, 6))
+    fig = plt.figure(figsize=(12, 6))
     plt.plot(df['date'], df['ndvi_mean'], marker='o', linestyle='-', color='g', markersize=8, linewidth=2, label='NDVI Mean')
 
-    # Adicione título e rótulos com formatação
     plt.title('Mean NDVI Over Time', fontsize=16, fontweight='bold')
     plt.xlabel('Date', fontsize=14)
     plt.ylabel('NDVI Mean', fontsize=14)
 
-    # Defina os limites do eixo y
     plt.ylim(-1, 1)
 
-    # Melhore o formato dos rótulos do eixo x
     plt.xticks(rotation=45, ha='right', fontsize=12)
     plt.yticks(fontsize=12)
 
-    # Adicione uma grade
     plt.grid(True, linestyle='--', alpha=0.7)
 
-    # Adicione uma legenda
     plt.legend()
 
-    # Adicione anotações para pontos específicos (se necessário)
     for i, row in df.iterrows():
         plt.text(row['date'], row['ndvi_mean'] + 0.04, f'{row["ndvi_mean"]:.2f}', ha='center', fontsize=10)
 
-    # Ajuste o layout para melhor apresentação
     plt.tight_layout()
 
-    # Retorne a figura
-    return plt.gcf()
+    plt.savefig("temporal_ndvi_mean.png", format='png')
 
-def mapdisplay(m):
+def mapdisplay():
+
+    m = geemap.Map()
 
     m.add_basemap('SATELLITE')
 
@@ -136,9 +128,8 @@ def mapdisplay(m):
 
     m.addLayer(styled_polygon, {}, 'Fazenda Batista')
 
-    # Centralize o mapa na imagem
     m.centerObject(features, zoom=15)
-    return m
+    m.to_html(filename='map.html')
 
 def mapinterativo():
 
@@ -150,7 +141,7 @@ def mapinterativo():
 
     geemap.modis_ndvi_timelapse(
         roi,
-        out_gif='ndvi.gif',
+        out_gif='temporalndvi.gif',
         data='Terra',
         band='NDVI',
         start_date='2023-01-01',
@@ -158,5 +149,10 @@ def mapinterativo():
         frames_per_second=1,
         title='MODIS NDVI Timelapse'
     )
+
+# if __name__ == '__main__':
+#     display_timeseries()
+#     mapdisplay()
+#     mapinterativo()
 
 
