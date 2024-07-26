@@ -74,31 +74,16 @@ if selected=='Sobre':
     with st.container():
         col1,col2,col3=st.columns(3)
         #col1.image('census_graphic.png',width=150)
-        col1.write(':blue[U.S. Census Bureau]')
-        col2.write('Demographic, housing, industry at zip level')
-        #col2.write('American Community Survey, 5-Year Profiles, 2021, datasets DP02 - DP05')
-        col3.write('https://data.census.gov/')
+        col1.write(':blue[Ministério da Agricultura e Pecuária]')
+        col2.write('Sistema de Subvenção Econômica ao Prêmio do Seguro Rural - SISSER')
+        col3.write('https://dados.agricultura.gov.br/it/dataset/sisser3')
 
     with st.container():
         col1,col2,col3=st.columns(3)
-        #col1.image('cdc.png',width=150)
-        col1.write(':blue[Centers for Disease Control and Prevention]')
-        col2.write('Environmental factors at county level')
-        col3.write('https://data.cdc.gov/')
+        col1.write(':blue[Google Earth Engine]')
+        col2.write('Earth Engine API')
+        col3.write('https://earthengine.google.com/')
 
-    with st.container():
-        col1,col2,col3=st.columns(3)
-        #col1.image('hud.png',width=150)\
-        col1.write(':blue[U.S. Dept Housing and Urban Development]')
-        col2.write('Mapping zip to county')
-        col3.write('https://www.huduser.gov/portal/datasets/')
-
-    with st.container():
-        col1,col2,col3=st.columns(3)
-        #col1.image('ods.png',width=150)
-        col1.write(':blue[OpenDataSoft]')
-        col2.write('Mapping zip to USPS city')
-        col3.write('https://data.opendatasoft.com/pages/home/')
 
     st.divider()
 
@@ -108,9 +93,9 @@ if selected=='Sobre':
         col1.write('')
         col1.write('')
         col1.write('')
-        col1.write('**Name:**    Kevin Soderholm')
-        col1.write('**Education:**    M.S. Applied Statistics')
-        col1.write('**Experience:**    8 YOE in Data Science across Banking, Fintech, and Retail')
-        col1.write('**Contact:**    kevin.soderholm@gmail.com or [linkedin](https://www.linkedin.com/in/kevin-soderholm-67788829/)')
-        col1.write('**Thanks for stopping by!**')
+        col1.write('**Nome:**    Anne Carvalho')
+        col1.write('**Educação:**    BS Ciência da Computação')
+        col1.write('**Experiência:**    Ciência de Dados em Finanças e Seguros')
+        col1.write('**Contato:**    anneisabelle.rodrigues@outlook.com or [linkedin](https://www.linkedin.com/in/anne-isabelle-rodrigues-de-carvalho/)')
+        col1.write('**Obrigada pela visita!**')
 
