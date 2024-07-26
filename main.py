@@ -5,8 +5,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import geemap.foliumap as geemap
-import geemap as geep
-import mpld3
 
 def apply_scl_mask(image):
     scl = image.select('SCL')

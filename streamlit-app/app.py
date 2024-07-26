@@ -1,16 +1,13 @@
 import base64
 
-import ee
 import streamlit as st
 from streamlit_option_menu import option_menu
 import sys
 import os
-import geemap.foliumap as geemap
 import streamlit.components.v1 as components
 from PIL import Image
 
 sys.path.insert(0, os.getcwd())
-from main import mapdisplay, display_timeseries
 
 #Layout
 st.set_page_config(
